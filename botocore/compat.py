@@ -148,7 +148,7 @@ def total_seconds(delta):
 # Checks to see if md5 is available on this system. A given system might not
 # have access to it for various reasons, such as FIPS mode being enabled.
 try:
-    hashlib.md5()
+    hashlib.md5(usedforsecurity=False)
     MD5_AVAILABLE = True
 except ValueError:
     MD5_AVAILABLE = False
@@ -167,7 +167,7 @@ def get_md5(*args, **kwargs):
         is returned if raise_error_if_unavailable is set to False.
     """
     if MD5_AVAILABLE:
-        return hashlib.md5(*args, **kwargs)
+        return hashlib.md5(*args, **kwargs, usedforsecurity=False)
     else:
         raise MD5UnavailableError()
 
